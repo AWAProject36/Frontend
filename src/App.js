@@ -1,23 +1,18 @@
-import logo from './logo.svg';
+import Login from './components/Login';
 import './App.css';
+import { useState } from 'react';
 
 function App() {
+  const [buttonPopup, setButtonPopup] = useState(false);
+  
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          moi
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <main>
+        <button onClick={() => setButtonPopup(true)}>Log in</button>
+      </main>
+        <Login trigger={buttonPopup} setTrigger={setButtonPopup}>
+          <h3>Log in</h3>
+        </Login>
     </div>
   );
 }
