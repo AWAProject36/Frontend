@@ -1,0 +1,13 @@
+* {
+    box-sizing: border-box;
+  }
+
+.container {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto;
+    gap: 2rem;
+}
+
+.restaurantList {
+  color: yellow;
+}
