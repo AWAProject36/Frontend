@@ -8,7 +8,7 @@ const Restaurants = (props) => {
     const [restaurants, setRestaurants] = useState([])
 
   useEffect(() => {
-    axios.get('http://voltti-app.herokuapp.com/restaurants')
+    axios.get('https://voltti-app.herokuapp.com/restaurants')
       .then((response) => {
           console.log(response.data)
         setRestaurants(response.data)
