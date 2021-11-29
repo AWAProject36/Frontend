@@ -1,14 +1,28 @@
-import React from "react";
-import styles from './restaurants.module.css';
-import Restaurant from "./Restaurant";
+import React, { useEffect, useState } from 'react'
+import Restaurant from './Restaurant'
+import { Link } from 'react-router-dom'
+import axios from 'axios'
 
+//Axios is declared at calling function instead of App.js because it otherwise fetces too fast and reports null
 const Restaurants = (props) => {
+    const [restaurants, setRestaurants] = useState([])
+
+  useEffect(() => {
+    axios.get('http://voltti-app.herokuapp.com/restaurants')
+      .then((response) => {
+          console.log(response.data)
+        setRestaurants(response.data)
+      });
+  }, []);
+
     return (
-        <div className={styles.container}>
-            <div className={styles.restaurantList}>
-                {props.restaurants.map(restaurant =>
-                    <Restaurant key={restaurant.id}{...restaurant}/>
-                )}
+        <div className="container">
+            <div className="restaurantList">
+                {restaurants &&restaurants.length > 0 ? 
+                restaurants.map((restaurant => <Link key={restaurant.idrestaurant} to={restaurant.idrestaurant}>
+                    <Restaurant restaurant={restaurant} key={restaurant.idrestaurant} />
+                </Link>
+                )) : ""}
             </div>
         </div>
     )

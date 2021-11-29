@@ -1,20 +1,16 @@
-import React from "react";
-import styles from './restaurant.module.css';
-import { Link } from "react-router-dom";
+import React from 'react'
 
 export default function Restaurant(props) {
     return (
-        <Link to={props.id}>
-            <div className={styles.shop}>
+        <div className="shop">
+            <div>
+                <div><img src={props.restaurant.img} alt="img" className="imageSize" /></div>
                 <div>
-                    <div><img src={props.image} className={styles.imageSize} /></div>
-                    <div>
-                        <div className={styles.title}>{props.title}</div>
-                        <div className={styles.type}>{props.type}</div>
-                        <div className={styles.prange}>{props.prange}</div>
-                    </div>
+                    <div className="title">{props.restaurant.name}</div>
+                    <div className="type">{props.restaurant.type}</div>
+                    <div className="prange">{props.restaurant.pricelvl}</div>
                 </div>
             </div>
-        </Link>
+        </div>
     )
 }

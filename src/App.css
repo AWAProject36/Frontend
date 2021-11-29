@@ -1,0 +1,94 @@
+* {
+  box-sizing: border-box;
+}
+
+.navLink {
+  float: left;
+  color: #fff;
+  display: flex;
+  align-items: left;
+  padding: 0.5rem;
+  height: 5vh;
+  cursor: pointer;
+}
+
+.navLink:active {
+  color: black;
+}
+
+.navLink:hover {
+  color: black;
+}
+
+.bars {
+  display: none;
+  color: #fff;
+  align-items: left;
+  height: 20vh;
+}
+
+.navMenu {
+  background: cadetblue;
+  width: 15vh;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  align-items: left;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.container {
+  display: flex;
+  color: yellow;
+  gap: 2rem;
+}
+
+.restaurantList {
+  display: grid;
+  gap: 2rem;
+  background-color: blue;
+}
+
+.mainFrame {
+  display: flex;
+  flex-direction: row;
+}
+
+.shop {
+  width: 30vw;
+  height: 20vh;
+  min-width: 300px;
+  min-height: 200px;
+}
+
+.imageSize {
+  height:  80%;
+}
+
+.title {
+  width: 30%;
+  text-align: center;
+  font-size: 2rem;
+  background-color: aqua;
+}
+
+.type {
+  width: 30%;
+  text-align: center;
+  font-size: 2rem;
+  background-color: greenyellow;
+}
+
+.prange {
+  width: 30%;
+  text-align: center;
+  font-size: 2rem;
+  background-color: indianred;
+}
+
+.content {
+  float: left;
+  width: 90vw;
+}
