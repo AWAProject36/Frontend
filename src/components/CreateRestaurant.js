@@ -9,28 +9,32 @@ function CreateRestaurant(props) {
                 >close</button>
                 { props.children }
                 <div classname="formgroup">
-                    <label htmlFor="Name"> Name:</label>
-                    <input type ="Name" name="Name" id="Name"/>
+                    <label htmlFor="name"> Name:</label>
+                    <input type ="name" name="name" id="name"/>
                 </div>
                 <div classname="formgroup">
-                    <label htmlFor="Address"> Address:</label>
-                    <input type ="Address" name="Address" id="Address"/>
+                    <label htmlFor="address"> Address:</label>
+                    <input type ="address" name="address" id="address"/>
                 </div>
                 <div classname="formgroup">
-                    <label htmlFor="Restaurant type"> Restaurant type:</label>
-                    <input type ="Restaurant type" name="Restaurant type" id="Restaurant type"/>
+                    <label htmlFor="opening"> Opening:</label>
+                    <input type ="opening" name="opening" id="opening"/>
                 </div>
                 <div classname="formgroup">
-                    <label htmlFor="Operating hours"> Operating hours:</label>
-                    <input type ="Operating hours" name="Operating hours" id="Operating hours"/>
+                    <label htmlFor="closing"> Closing:</label>
+                    <input type ="closing" name="closing" id="closing"/>
                 </div>
                 <div classname="formgroup">
-                    <label htmlFor="Price level"> Price level:</label>
-                    <input type ="Price level" name="Price level" id="Price level"/>
+                    <label htmlFor="img"> Image:</label>
+                    <input type ="img" name="img" id="img"/>
                 </div>
                 <div classname="formgroup">
-                    <label htmlFor="Image"> Image:</label>
-                    <input type ="Image" name="Image" id="Image"/>
+                    <label htmlFor="type"> Restaurant type:</label>
+                    <input type ="type" name="type" id="type"/>
+                </div>
+                <div classname="formgroup">
+                    <label htmlFor="pricelvl"> Price level:</label>
+                    <input type ="pricelvl" name="pricelvl" id="pricelvl"/>
                 </div>
             </div>
         </div>
