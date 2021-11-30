@@ -1,7 +1,7 @@
 import React from 'react'
-import styles from './Signin.module.css'
+import styles from './Register.module.css'
 
-function Signin(props) {
+function Register(props) {
     return (props.trigger) ? (
         <div className={ styles.popup }>
             <div className={ styles.popupinner }>
@@ -33,4 +33,4 @@ function Signin(props) {
     ) : "";
 }
 
-export default Signin
+export default Register
