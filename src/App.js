@@ -3,6 +3,9 @@ import './App.css'
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 import { UserAuthContext } from './components/Contexts';
 import Login from './components/Login';
+import CreateMenu from './components/CreateMenu';
+import CreateRestaurant from './components/CreateRestaurant';
+import Register from './components/Register';
 import Restaurants from './components/Restaurants'
 import searchRestaurant from './components/Search'
 import Restaurant from './components/Restaurant'
@@ -13,6 +16,9 @@ var userName, jwtPayload = "";
 
 const App = () => {
   const [buttonPopup, setButtonPopup] = useState(false);
+  const [buttonPopup1, setButtonPopup1] = useState(false);
+  const [buttonPopup2, setButtonPopup2] = useState(false);
+  const [buttonPopup3, setButtonPopup3] = useState(false);
 
   const initialAuthData = {
     jwt: jwtFromStorage,
