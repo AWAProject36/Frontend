@@ -6,8 +6,10 @@ import Login from './components/Login';
 import Restaurants from './components/Restaurants'
 import searchRestaurant from './components/Search'
 import Restaurant from './components/Restaurant'
+import jwt_decode from 'jwt-decode';
 
 const jwtFromStorage = window.localStorage.getItem('appAuthData');
+var userName, jwtPayload = "";
 
 const App = () => {
   const [buttonPopup, setButtonPopup] = useState(false);
@@ -23,22 +25,40 @@ const App = () => {
     },
     logout: () => {
       window.localStorage.removeItem('appAuthData');
-      setUserAuthData({...initialAuthData});
+      setUserAuthData({});
+      console.log("Logged out successfully")
     }
   };
 
   const [ userAuthData, setUserAuthData ] = useState({...initialAuthData});
+
+  let protectedLinks = <>
+  </>
+
+  let userInfo = <>
+  <div>
+    <button onClick={() => setButtonPopup(true)}>Log in</button>
+  </div>
+  </>
+
+  if(userAuthData.jwt){
+    jwtPayload = jwt_decode(userAuthData.jwt);
+    userName = jwtPayload.user.name;
+    console.log(jwtPayload);
+    userInfo=<div>
+              Welcome <br /> {userName} <br />
+              <button onClick={() => userAuthData.logout()} >Logout</button>
+             </div>
+  }
+
   return (
     <UserAuthContext.Provider value={ userAuthData }>
     <Router>
       <div className='mainFrame'>
         <div className='navMenu'>
-          <div className="navLink">
-          <UserAuthContext.Consumer>
-            { value => (<div>Auth status: { value.jwt != null ? "Logged in": "Not logged in" }</div>) }
-          </UserAuthContext.Consumer> 
+          <div className="infoDiv">
+            { userInfo }
           </div>
-          <div className="navLink"> <button onClick={() => setButtonPopup(true)}>Log in</button> </div>
           <Link to='/settings'><div className="navLink">Settings</div></Link>
           <Link to='/orders'><div className="navLink">Orders</div></Link>
           <Link to='/shoppingcart'><div className="navLink">Shopping Cart</div></Link>
