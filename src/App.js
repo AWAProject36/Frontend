@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 import { UserAuthContext } from './components/Contexts';
 import Login from './components/Login';
 import Restaurants from './components/Restaurants'
-import searchRestaurant from './components/Search'
 import Restaurant from './components/Restaurant'
 
 const jwtFromStorage = window.localStorage.getItem('appAuthData');
@@ -43,7 +42,6 @@ const App = () => {
           <Link to='/orders'><div className="navLink">Orders</div></Link>
           <Link to='/shoppingcart'><div className="navLink">Shopping Cart</div></Link>
           <Link to='/restaurants'><div className="navLink">Restaurants</div></Link>
-          <Link to='/Search'><div className="navLink">Search</div></Link>
         </div>
         <div className='content'>
         <main>
@@ -54,8 +52,8 @@ const App = () => {
           </Login>
           <Routes>
             <Route path="/" element={<Restaurants />} />
-            <Route path='/restaurants' element={<Restaurants />} >
-              <Route path="/restaurants/idrestaurant" element={<Restaurant />} />
+              <Route path='restaurants' element={<Restaurants />} >
+                <Route path=":idrestaurant" element={<Restaurant />} />
             </Route>
             {/* <Route path='/Search' element={<Search />} /> */}
           </Routes>
