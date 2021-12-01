@@ -12,12 +12,12 @@ import Restaurant from './components/Restaurant'
 import jwt_decode from 'jwt-decode';
 
 const jwtFromStorage = window.localStorage.getItem('appAuthData');
-var userName, jwtPayload = "";
+var userName, jwtPayload;
 
 const App = () => {
-  const [buttonPopup, setButtonPopup] = useState(false);
-  const [buttonPopup1, setButtonPopup1] = useState(false);
-  const [buttonPopup2, setButtonPopup2] = useState(false);
+  const [loginPopup, setLoginPopup] = useState(false);
+  const [registerPopup, setRegisterPopup] = useState(false);
+  const [createRestaurantPopup, setcreateRestaurantPopup] = useState(false);
   const [buttonPopup3, setButtonPopup3] = useState(false);
 
   const initialAuthData = {
@@ -38,12 +38,13 @@ const App = () => {
 
   const [ userAuthData, setUserAuthData ] = useState({...initialAuthData});
 
-  let protectedLinks = <>
-  </>
+  let protectedLinks = <></>
 
   let userInfo = <>
   <div>
-    <button onClick={() => setButtonPopup(true)}>Log in</button>
+    <button onClick={() => setLoginPopup(true)}>Log in</button>
+    <br /> OR <br /> 
+    <button onClick={() => setRegisterPopup(true)} >Register Now</button>
   </div>
   </>
 
@@ -55,6 +56,24 @@ const App = () => {
               Welcome <br /> {userName} <br />
               <button onClick={() => userAuthData.logout()} >Logout</button>
              </div>
+    if(jwtPayload.user.role == "user"){
+    protectedLinks = <>
+    <Link to='/settings'><div className="navLink">Settings</div></Link>
+    <Link to='/orders'><div className="navLink">My Orders</div></Link>
+    <CreateRestaurant trigger={createRestaurantPopup} setTrigger={setcreateRestaurantPopup}>
+      <h3>Create a new restaurant</h3>
+    </CreateRestaurant>
+    </>
+    }
+    else{
+      protectedLinks = <>
+      <Link to='/settings'><div className="navLink">Settings</div></Link>
+      <Link onClick={setcreateRestaurantPopup} to='/createRestaurant'> <div className="navLink">Create Restaurant</div></Link>
+      <CreateRestaurant trigger={createRestaurantPopup} setTrigger={setcreateRestaurantPopup} id = {jwtPayload.user.id}>
+        <h3>Create a new restaurant</h3>
+      </CreateRestaurant>
+      </>
+      }
   }
 
   return (
@@ -65,8 +84,7 @@ const App = () => {
           <div className="infoDiv">
             { userInfo }
           </div>
-          <Link to='/settings'><div className="navLink">Settings</div></Link>
-          <Link to='/orders'><div className="navLink">Orders</div></Link>
+          { protectedLinks }
           <Link to='/shoppingcart'><div className="navLink">Shopping Cart</div></Link>
           <Link to='/restaurants'><div className="navLink">Restaurants</div></Link>
           <Link to='/Search'><div className="navLink">Search</div></Link>
@@ -75,9 +93,12 @@ const App = () => {
         <main>
 
       </main>
-          <Login trigger={buttonPopup} setTrigger={setButtonPopup}>
+          <Login trigger={loginPopup} setTrigger={setLoginPopup}>
             <h3>Log in</h3>
           </Login>
+          <Register trigger={registerPopup} setTrigger={setRegisterPopup} loginTrigger={setLoginPopup}>
+            <h3>Register</h3>
+          </Register>
           <Routes>
             <Route path="/" element={<Restaurants />} />
             <Route path='/restaurants' element={<Restaurants />} >
