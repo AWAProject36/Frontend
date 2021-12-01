@@ -52,14 +52,16 @@
 
 .container {
   display: flex;
+  flex-direction: column;
   color: yellow;
   gap: 2rem;
 }
 
 .restaurantList {
-  display: grid;
+  display: flex;
+  flex-wrap: wrap;
   gap: 2rem;
-  background-color: blue;
+  background-color: aqua;
 }
 
 .mainFrame {
@@ -102,4 +104,12 @@
 .content {
   float: left;
   width: 90vw;
+}
+
+.searchDiv {
+  display: flex;
+}
+
+.search {
+  height: 10vh;
 }

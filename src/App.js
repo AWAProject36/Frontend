@@ -7,7 +7,6 @@ import CreateMenu from './components/CreateMenu';
 import CreateRestaurant from './components/CreateRestaurant';
 import Register from './components/Register';
 import Restaurants from './components/Restaurants'
-import searchRestaurant from './components/Search'
 import Restaurant from './components/Restaurant'
 import jwt_decode from 'jwt-decode';
 
@@ -87,7 +86,6 @@ const App = () => {
           { protectedLinks }
           <Link to='/shoppingcart'><div className="navLink">Shopping Cart</div></Link>
           <Link to='/restaurants'><div className="navLink">Restaurants</div></Link>
-          <Link to='/Search'><div className="navLink">Search</div></Link>
         </div>
         <div className='content'>
         <main>
@@ -101,8 +99,8 @@ const App = () => {
           </Register>
           <Routes>
             <Route path="/" element={<Restaurants />} />
-            <Route path='/restaurants' element={<Restaurants />} >
-              <Route path="/restaurants/idrestaurant" element={<Restaurant />} />
+              <Route path='restaurants' element={<Restaurants />} >
+                <Route path=":idrestaurant" element={<Restaurant />} />
             </Route>
             {/* <Route path='/Search' element={<Search />} /> */}
           </Routes>
