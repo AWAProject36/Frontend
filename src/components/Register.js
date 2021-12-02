@@ -12,6 +12,7 @@ function Register(props) {
 
     const registerSubmit = async () => {
         try {
+            if (password.length < 8) { throw "passLength" }
             const result = await axios.post('https://voltti-app.herokuapp.com/register', {
                 name: name,
                 address: address,
@@ -19,6 +20,9 @@ function Register(props) {
                 password: password,
                 phone: phone
             })
+            if (result.data.constraint = "unique_email") {
+                throw "email";
+            }
             setRegisterState("ok");
             console.log(result)
             setTimeout(() => {
@@ -28,8 +32,16 @@ function Register(props) {
             }, 1500);
 
         } catch (error) {
-            setRegisterState("err");
-            console.error(error.message);
+            if (error == "email") {
+                setRegisterState("email");
+            }
+            else if (error == "passLength") {
+                setRegisterState("passLength");
+            }
+            else{
+                setRegisterState("err");
+            }
+            console.error(error);
             setTimeout(() => setRegisterState("idle"), 1500);
         }
     }
@@ -44,8 +56,15 @@ function Register(props) {
             break;
 
         case "err":
-            registerElements = <span style={{ color: 'red' }}>Error! Invalid fields, please try again.</span>
+            registerElements = <span style={{ color: 'red' }}>Error! Invalid fields, make sure you filled everything and try again</span>
             break;
+        case "email":
+            registerElements = <span style={{ color: 'red' }}>Error! The email address is already in use.</span>
+            break;
+        case "passLength":
+            registerElements = <span style={{ color: 'red' }}>Error! The password must be longer than 8 letters.</span>
+            break;
+
 
         default:
             registerElements = <button onClick={registerSubmit}>Register</button>
@@ -58,23 +77,23 @@ function Register(props) {
                 {props.children}
                 <div classname="formgroup">
                     <label htmlFor="name">Name:</label>
-                    <input type="name" name="name" id="name" onChange = {(event) => setName(event.target.value)}/>
+                    <input type="name" name="name" id="name" onChange={(event) => setName(event.target.value)} />
                 </div>
                 <div classname="formgroup">
                     <label htmlFor="address">Address:</label>
-                    <input type="address" name="address" id="address" onChange = {(event) => setAddress(event.target.value)}/>
+                    <input type="address" name="address" id="address" onChange={(event) => setAddress(event.target.value)} />
                 </div>
                 <div classname="formgroup">
                     <label htmlFor="email">Email:</label>
-                    <input type="email" name="email" id="email" onChange = {(event) => setEmail(event.target.value)}/>
+                    <input type="email" name="email" id="email" onChange={(event) => setEmail(event.target.value)} />
                 </div>
                 <div classname="formgroup">
                     <label htmlFor="password">Password:</label>
-                    <input type="password" name="password" id="password" onChange = {(event) => setPassword(event.target.value)}/>
+                    <input type="password" name="password" id="password" onChange={(event) => setPassword(event.target.value)} />
                 </div>
                 <div classname="formgroup">
                     <label htmlFor="phone">Phone:</label>
-                    <input type="phone" name="phone" id="phone" onChange = {(event) => setPhone(event.target.value)}/>
+                    <input type="phone" name="phone" id="phone" onChange={(event) => setPhone(event.target.value)} />
                 </div>
                 {registerElements}
             </div>

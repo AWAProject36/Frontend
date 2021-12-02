@@ -30,7 +30,7 @@ const App = () => {
     },
     logout: () => {
       window.localStorage.removeItem('appAuthData');
-      setUserAuthData({});
+      setUserAuthData({...initialAuthData});
       console.log("Logged out successfully")
     }
   };
