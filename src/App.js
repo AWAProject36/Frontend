@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import './App.css'
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 import { UserAuthContext } from './components/Contexts';
@@ -8,6 +8,9 @@ import CreateRestaurant from './components/CreateRestaurant';
 import Register from './components/Register';
 import Restaurants from './components/Restaurants'
 import jwt_decode from 'jwt-decode';
+import RestaurantView from './components/RestaurantView';
+import axios from 'axios';
+
 
 const jwtFromStorage = window.localStorage.getItem('appAuthData');
 var userName, jwtPayload;
@@ -17,6 +20,16 @@ const App = () => {
   const [registerPopup, setRegisterPopup] = useState(false);
   const [createRestaurantPopup, setcreateRestaurantPopup] = useState(false);
   const [buttonPopup3, setButtonPopup3] = useState(false);
+  const [restaurants, setRestaurants] = useState([])
+  const [searchField, setSearchField] = useState("")
+
+  useEffect(() => {
+    axios.get('https://voltti-app.herokuapp.com/restaurants')
+      .then((response) => {
+        console.log(response.data)
+        setRestaurants(response.data)
+      });
+  }, []);
 
   const initialAuthData = {
     jwt: jwtFromStorage,
@@ -99,8 +112,12 @@ const App = () => {
             </Register>
             <Routes>
               <Route path="/" element={<Restaurants />} />
-              <Route path='restaurants' element={<Restaurants />} >
-              </Route>
+              <Route path='/restaurants' element={<Restaurants 
+                restaurants={restaurants} 
+                setRestaurants={setRestaurants} 
+                searchField={searchField} 
+                setSearchField={setSearchField}/>} />
+              <Route path="/restaurants/:idrestaurant" element={<RestaurantView restaurants={restaurants} />} />
             </Routes>
           </div>
         </div>

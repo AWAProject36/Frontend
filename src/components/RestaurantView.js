@@ -2,7 +2,7 @@ import React from 'react'
 import { useParams } from 'react-router'
 import styles from './RestaurantView.css'
 
-function RestaurantView(props) {
+const RestaurantView = (props) => {
     const params = useParams()
 
     const data = props.restaurants.find(data => data.idrestaurant === params.idrestaurant)
