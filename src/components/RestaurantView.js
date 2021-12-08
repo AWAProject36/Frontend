@@ -5,7 +5,7 @@ import styles from './RestaurantView.css'
 const RestaurantView = (props) => {
     const params = useParams()
 
-    const data = props.restaurants.find(data => data.idrestaurant == params.idrestaurant)
+    const data = props.restaurants.find(data => data.idrestaurant === parseInt(params.idrestaurant))
     console.log(data)
     if(data == null) {
         return <div>No data</div>
