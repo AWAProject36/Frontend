@@ -20,13 +20,12 @@ const App = () => {
   const [registerPopup, setRegisterPopup] = useState(false);
   const [createRestaurantPopup, setcreateRestaurantPopup] = useState(false);
   const [buttonPopup3, setButtonPopup3] = useState(false);
-  const [restaurants, setRestaurants] = useState([])
+  const [restaurants, setRestaurants] = useState(null)
   const [searchField, setSearchField] = useState("")
 
   useEffect(() => {
     axios.get('https://voltti-app.herokuapp.com/restaurants')
       .then((response) => {
-        console.log(response.data)
         setRestaurants(response.data)
       });
   }, []);
@@ -87,7 +86,7 @@ const App = () => {
       </>
     }
   }
-
+if(restaurants){
   return (
     <UserAuthContext.Provider value={userAuthData}>
       <Router>
@@ -111,7 +110,6 @@ const App = () => {
               <h3>Register</h3>
             </Register>
             <Routes>
-              <Route path="/" element={<Restaurants />} />
               <Route path='/restaurants' element={<Restaurants 
                 restaurants={restaurants} 
                 setRestaurants={setRestaurants} 
@@ -124,6 +122,11 @@ const App = () => {
       </Router>
     </UserAuthContext.Provider>
   )
+}else{
+  return(
+    <div>loading</div>
+  )
+}
 }
 
 export default App

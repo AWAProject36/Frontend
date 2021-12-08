@@ -3,21 +3,10 @@ import axios from 'axios'
 import Restaurant from './Restaurant'
 import { Link } from 'react-router-dom'
 
-//Axios is declared at calling function instead of App.js because it otherwise fetces too fast and reports null
-function Restaurants(props) {
+export default function Restaurants(props) {
 
-  useEffect((props) => {
-    axios.get('https://voltti-app.herokuapp.com/restaurants')
-      .then((response) => {
-        console.log(response.data)
-        props.setRestaurants(response.data)
-      });
-  }, []);
-
-  // const getRestaurant = (idrestaurant) => { return restaurants.find(restaurant => restaurant.idrestaurant === idrestaurant) }
-
-  const fieldUpdate = (event) => { props.setSearchField(event.target.value) }
-
+  const fieldUpdate = (event) => {props.setSearchField(event.target.value) }
+  if(props.restaurants){
   return (
     <div className="container">
       <div className='searchDiv'>
@@ -31,6 +20,9 @@ function Restaurants(props) {
       </div>
     </div>
   )
+        }else{
+          return(
+            <div>loading restaurants.js</div>
+          )
+        }
 }
-
-export default Restaurants
