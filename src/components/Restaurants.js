@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { Search } from './Search'
-import { Outlet } from 'react-router'
+import Restaurant from './Restaurant'
+import { Link, Routes, Route } from 'react-router-dom'
+import RestaurantView from './RestaurantView'
 
 //Axios is declared at calling function instead of App.js because it otherwise fetces too fast and reports null
 function Restaurants() {
@@ -16,17 +17,24 @@ function Restaurants() {
       });
   }, []);
 
+  const getRestaurant = (idrestaurant) => { return restaurants.find(restaurant => restaurant.idrestaurant === idrestaurant) }
+
   const fieldUpdate = (event) => { setSearchField(event.target.value) }
 
   return (
     <div className="container">
       <div className='searchDiv'>
-        <p>Search</p> <input className='search' type="text" placeholder="Find Restaurants" onChange={fieldUpdate} value={searchField}/>
+        <p>Search</p> <input className='search' type="text" placeholder="Find Restaurants" onChange={fieldUpdate} value={searchField} />
       </div>
-      <div>
-        <Search restaurants={restaurants.filter((restaurant) => restaurant.name.toLowerCase().includes(searchField))}/>
+      <div className="restaurantList">
+        {restaurants.filter(restaurant => restaurant.name.toLowerCase().includes(searchField)).map(restaurant =>
+          <Link to={`/restaurants/${restaurant.idrestaurant}`} key={restaurant.idrestaurant}>
+            <Restaurant key={restaurant.idrestaurant} {...restaurant} />
+          </Link>)}
       </div>
-      <div><Outlet/></div>
+      <Routes>
+        <Route path=":idrestaurant" element={<RestaurantView restaurants={restaurants} />} />
+      </Routes>
     </div>
   )
 }

@@ -3,13 +3,11 @@ import React from 'react'
 export default function Restaurant(props) {
     return (
         <div className="shop">
+            <div><img src={`/images/${props.img}`} alt={props.name} className="imageSize" /></div>
             <div>
-                <div><img src={props.restaurant.img} alt={props.restaurant.name} className="imageSize" /></div>
-                <div>
-                    <div className="title">{props.restaurant.name}</div>
-                    <div className="type">{props.restaurant.type}</div>
-                    <div className="prange">{props.restaurant.pricelvl}</div>
-                </div>
+                <div className="title">{props.name}</div>
+                <div className="type">{props.type}</div>
+                <div className="prange">{props.pricelvl}</div>
             </div>
         </div>
     )
