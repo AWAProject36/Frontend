@@ -1,34 +1,27 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
-import { Search } from './Search'
-import { Outlet } from 'react-router'
+import React from 'react'
+import Restaurant from './Restaurant'
+import { Link } from 'react-router-dom'
 
-//Axios is declared at calling function instead of App.js because it otherwise fetces too fast and reports null
-function Restaurants() {
-  const [restaurants, setRestaurants] = useState([])
-  const [searchField, setSearchField] = useState("")
+export default function Restaurants(props) {
 
-  useEffect(() => {
-    axios.get('https://voltti-app.herokuapp.com/restaurants')
-      .then((response) => {
-        console.log(response.data)
-        setRestaurants(response.data)
-      });
-  }, []);
-
-  const fieldUpdate = (event) => { setSearchField(event.target.value) }
-
+  const fieldUpdate = (event) => {props.setSearchField(event.target.value) }
+  if(props.restaurants){
   return (
     <div className="container">
       <div className='searchDiv'>
-        <p>Search</p> <input className='search' type="text" placeholder="Find Restaurants" onChange={fieldUpdate} value={searchField}/>
+        <p>Search</p> <input className='search' type="text" placeholder="Find Restaurants" onChange={fieldUpdate} value={props.searchField} />
       </div>
-      <div>
-        <Search restaurants={restaurants.filter((restaurant) => restaurant.name.toLowerCase().includes(searchField))}/>
+      <div className="restaurantList">
+        {props.restaurants.filter(restaurant => restaurant.name.toLowerCase().includes(props.searchField)).map(restaurant =>
+          <Link to={`/restaurants/${restaurant.idrestaurant}`} key={restaurant.idrestaurant}>
+            <Restaurant key={restaurant.idrestaurant} {...restaurant} />
+          </Link>)}
       </div>
-      <div><Outlet/></div>
     </div>
   )
+        }else{
+          return(
+            <div>loading restaurants.js</div>
+          )
+        }
 }
-
-export default Restaurants
