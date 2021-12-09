@@ -10,6 +10,7 @@ import Restaurants from './components/Restaurants'
 import jwt_decode from 'jwt-decode';
 import RestaurantView from './components/RestaurantView';
 import axios from 'axios';
+import Orders from './components/Orders';
 
 
 const jwtFromStorage = window.localStorage.getItem('appAuthData');
@@ -101,7 +102,7 @@ if(restaurants){
           </div>
           <div className='content'>
             <main>
-
+            
             </main>
             <Login trigger={loginPopup} setTrigger={setLoginPopup}>
               <h3>Log in</h3>
@@ -110,6 +111,7 @@ if(restaurants){
               <h3>Register</h3>
             </Register>
             <Routes>
+              <Route path="/orders" element={<Orders />} />
               <Route path='/restaurants' element={<Restaurants 
                 restaurants={restaurants} 
                 setRestaurants={setRestaurants} 
