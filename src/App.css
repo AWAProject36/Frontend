@@ -142,10 +142,71 @@
 
 .foodMenu {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   flex-wrap: wrap;
   gap: 1rem;
   height: 85vh;
   width: auto;
   background-color: peachpuff;
+}
+
+.categoryItem {
+  display: flex;
+  flex-direction: column;
+  height: 10vh;
+  width: 10vw;
+  border: 0.5rem;
+  border-color: aquamarine;
+}
+
+.foodCategoryName {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-family: Impact;
+  color: chocolate;
+}
+
+.foodCategory {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  width: auto;
+}
+
+.foodContainer {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  width: auto;
+}
+
+.foodImage {
+  height: 60%;
+}
+
+.foodDetails {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-family: Impact;
+  color: chocolate;
+}
+
+.foodUpperDetaisRow {
+  display: flex;
+  flex-direction: row;
+}
+
+.cartButtons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-family: Impact;
+  color: cadetblue;
 }

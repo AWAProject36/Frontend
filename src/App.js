@@ -22,11 +22,19 @@ const App = () => {
   const [buttonPopup3, setButtonPopup3] = useState(false);
   const [restaurants, setRestaurants] = useState(null)
   const [searchField, setSearchField] = useState("")
+  const [menu, setMenu] = useState(null)
 
   useEffect(() => {
     axios.get('https://voltti-app.herokuapp.com/restaurants')
       .then((response) => {
         setRestaurants(response.data)
+      });
+  }, []);
+
+  useEffect(() => {
+    axios.get('https://voltti-app.herokuapp.com/menu/')
+      .then((response) => {
+        setMenu(response.data)
       });
   }, []);
 
@@ -115,7 +123,7 @@ if(restaurants){
                 setRestaurants={setRestaurants} 
                 searchField={searchField} 
                 setSearchField={setSearchField}/>} />
-              <Route path="/restaurants/:idrestaurant" element={<RestaurantView restaurants={restaurants} />} />
+              <Route path="/restaurants/:idrestaurant" element={<RestaurantView restaurants={restaurants} menu={menu}/>} />
             </Routes>
           </div>
         </div>

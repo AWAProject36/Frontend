@@ -1,11 +1,16 @@
 import React from 'react'
 import { useParams } from 'react-router'
+import CategoryItem from './CategoryItem'
 
 const RestaurantView = (props) => {
     const params = useParams()
 
     const data = props.restaurants.find(data => data.idrestaurant === parseInt(params.idrestaurant))
-    console.log(data)
+
+    const menuInfo = props.menu.find(menuInfo => menuInfo.idproducts === parseInt(params.idrestaurant))
+    console.log(menuInfo)
+    debugger
+
     if (data == null) {
         return <div>No data</div>
     }
@@ -24,6 +29,8 @@ const RestaurantView = (props) => {
                 </div>
             </div>
             <div className="foodMenu">
+                {menuInfo.map(menuX => 
+                <CategoryItem key={menuX.categories} {...menuX} />)}
             </div>
         </div>
     )
