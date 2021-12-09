@@ -1,14 +1,15 @@
 import React, { useState, useContext } from 'react';
-import './App.css'
+import './App.css';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 import { UserAuthContext } from './components/Contexts';
 import Login from './components/Login';
 import CreateMenu from './components/CreateMenu';
 import CreateRestaurant from './components/CreateRestaurant';
 import Register from './components/Register';
-import Restaurants from './components/Restaurants'
-import Restaurant from './components/Restaurant'
+import Restaurants from './components/Restaurants';
+import Restaurant from './components/Restaurant';
 import jwt_decode from 'jwt-decode';
+import ShoppingCart from './components/ShoppingCart';
 
 const jwtFromStorage = window.localStorage.getItem('appAuthData');
 var userName, jwtPayload;
@@ -98,9 +99,10 @@ const App = () => {
             <h3>Register</h3>
           </Register>
           <Routes>
-            <Route path="/" element={<Restaurants />} />
-              <Route path='restaurants' element={<Restaurants />} >
-                <Route path=":idrestaurant" element={<Restaurant />} />
+            <Route path='shoppingcart' element={<ShoppingCart />} />
+              <Route path="/" element={<Restaurants />} />
+                <Route path='restaurants' element={<Restaurants />} >
+                  <Route path=":idrestaurant" element={<Restaurant />} />
             </Route>
             {/* <Route path='/Search' element={<Search />} /> */}
           </Routes>
