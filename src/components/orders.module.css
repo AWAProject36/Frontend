@@ -1,0 +1,50 @@
+.container {
+    flex-direction: column;
+    display: flex;
+    align-items: flex-start;
+}
+
+.container2 {
+    display: flex;
+    flex-direction: row;
+}
+
+.tilaukset {
+    max-height: 40px;
+    border: 1px #ccc solid;
+    padding: 15px;
+    margin: 20px;
+    background-color: #dfdfdf;
+}
+
+.historia {
+    max-height: 40px;
+    border: 1px #ccc solid;
+    padding: 15px;
+    margin: 20px;
+    background-color: #dfdfdf;
+}
+
+.tilausStatus {
+    min-height: 300px;
+    border: 1px #ccc solid;
+    padding: 15px;
+    margin: 20px;
+    background-color: #dfdfdf;
+}
+
+.tilausHistoria {
+    border: 1px #ccc solid;
+    padding: 15px;
+    margin: 20px;
+    background-color: #dfdfdf;
+}
+
+.status {
+    height: 220px;
+    width: 200px;
+    border: 1px #ccc solid;
+    padding: 15px;
+    margin: 5px;
+    background-color: #dfdfdf;
+}

@@ -9,6 +9,7 @@ import Register from './components/Register';
 import Restaurants from './components/Restaurants'
 import Restaurant from './components/Restaurant'
 import jwt_decode from 'jwt-decode';
+import Orders from './components/Orders';
 
 const jwtFromStorage = window.localStorage.getItem('appAuthData');
 var userName, jwtPayload;
@@ -98,6 +99,7 @@ const App = () => {
             <h3>Register</h3>
           </Register>
           <Routes>
+            <Route path="/orders" element={<Orders />} />
             <Route path="/" element={<Restaurants />} />
               <Route path='restaurants' element={<Restaurants />} >
                 <Route path=":idrestaurant" element={<Restaurant />} />
