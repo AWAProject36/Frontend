@@ -8,8 +8,8 @@ export default function ShoppingCart() {
             <div className={ styles.ruokaKuva }>kuva</div>
             <div className={ styles.container2 }>
                 <div className={ styles.ruokaNimi }>nimi</div>
-                <div className={ styles.lisää }><button>+</button></div>
-                <div className={ styles.vähennä }><button>-</button></div>
+                <div className={ styles.lisää }><button>-</button></div>
+                <div className={ styles.vähennä }><button>+</button></div>
             </div>
             <div className={ styles.container2 }>
                 <div className={ styles.hinta }>Hinta</div>
