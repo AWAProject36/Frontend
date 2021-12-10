@@ -6,7 +6,7 @@ function CategoryItem(props) {
         <div className='categoryItem'>
             <div className='foodCategoryName'>{props.category}</div>
             <div className='foodCategory'>
-                {props.menuX.map(food => <FoodItem key={food.id} {...food} />)}
+                {props.products.map(food => <FoodItem key={food.id} {...food} />)}
             </div>
         </div>
     )
