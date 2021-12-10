@@ -30,7 +30,7 @@ const RestaurantView = (props) => {
             </div>
             <div className="foodMenu">
                 {menuInfo.map(menuX => 
-                <CategoryItem key={menuX.categories} {...menuX} />)}
+                <CategoryItem key={menuX.categories} {...menuX} menuX={menuX}/>)}
             </div>
         </div>
     )
