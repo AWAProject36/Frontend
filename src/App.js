@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import './App.css'
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, Link, useParams } from 'react-router-dom'
 import { UserAuthContext } from './components/Contexts';
 import Login from './components/Login';
 import CreateMenu from './components/CreateMenu';
@@ -32,8 +32,10 @@ const App = () => {
       });
   }, []);
 
+  const menuID = useParams()
+
   useEffect(() => {
-    axios.get('https://voltti-app.herokuapp.com/menu/')
+    axios.get(`https://voltti-app.herokuapp.com/menu/${menuID}`)
       .then((response) => {
         setMenu(response.data)
       });
