@@ -98,20 +98,13 @@ if(restaurants){
             </div>
             <div className="menuItemDiv">
             {protectedLinks}
+            <Login trigger={loginPopup} setTrigger={setLoginPopup}><h3>Log in</h3></Login>
+            <Register trigger={registerPopup} setTrigger={setRegisterPopup} loginTrigger={setLoginPopup}><h3>Register</h3></Register>
             <Link to='/shoppingcart'><div className="navLink">Shopping Cart</div></Link>
             <Link to='/restaurants'><div className="navLink">Restaurants</div></Link>
             </div>
           </div>
           <div className='content'>
-            <main>
-            
-            </main>
-            <Login trigger={loginPopup} setTrigger={setLoginPopup}>
-              <h3>Log in</h3>
-            </Login>
-            <Register trigger={registerPopup} setTrigger={setRegisterPopup} loginTrigger={setLoginPopup}>
-              <h3>Register</h3>
-            </Register>
             <Routes>
               <Route path="/orders" element={<Orders jwtToken = {userAuthData.jwt}/>} />
               <Route path='/restaurants' element={<Restaurants 
