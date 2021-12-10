@@ -13,6 +13,7 @@
     max-height: 40px;
     border: 1px #ccc solid;
     padding: 15px;
+    min-width: 400px;
     margin: 20px;
     background-color: #dfdfdf;
 }
@@ -20,6 +21,7 @@
 .historia {
     max-height: 40px;
     border: 1px #ccc solid;
+    min-width: 500px;
     padding: 15px;
     margin: 20px;
     background-color: #dfdfdf;
@@ -29,6 +31,7 @@
     min-height: 300px;
     border: 1px #ccc solid;
     padding: 15px;
+    min-width: 400px;
     margin: 20px;
     background-color: #dfdfdf;
 }
@@ -37,14 +40,42 @@
     border: 1px #ccc solid;
     padding: 15px;
     margin: 20px;
+    min-width: 500px;
     background-color: #dfdfdf;
 }
 
 .status {
     height: 220px;
     width: 200px;
-    border: 1px #ccc solid;
+    border: 2px solid cadetblue;
     padding: 15px;
-    margin: 5px;
+    margin: 30px;
     background-color: #dfdfdf;
 }
+
+
+.historyItem {
+    border: 2px solid cadetblue;
+    margin-bottom: 5px;
+    padding: 4px;
+    background-color: #dfdfdf;
+}
+
+.button {
+    background-color: rgba(255, 255, 255, 0.274); 
+    color: black; 
+    border: 2px solid cadetblue;
+    padding: 10px 22px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 10px 2px 0px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+  }
+  
+.button:hover {
+    background-color: cadetblue;
+    color: white;
+  }

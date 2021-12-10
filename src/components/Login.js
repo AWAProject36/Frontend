@@ -36,7 +36,7 @@ function Login(props) {
     let loginElements = null;
     switch (loginState) {
         case "idle":
-            loginElements = <button onClick={loginSubmit}>Login</button>
+            loginElements = <button className={styles.button} onClick={loginSubmit}>Login</button>
             break;
 
         case "ok":
@@ -48,7 +48,7 @@ function Login(props) {
             break;
 
         default:
-            loginElements = <button onClick={loginSubmit}>Login</button>
+            loginElements = <button className={styles.button} onClick={loginSubmit}>Login</button>
     }
     
     return (props.trigger) ? (

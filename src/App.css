@@ -210,3 +210,31 @@
   font-family: Impact;
   color: cadetblue;
 }
+
+.loginDiv {
+  margin-bottom: 50px;
+}
+
+.menuItemDiv {
+  margin-top: 5.5vh;
+}
+
+
+.button {
+  background-color: rgb(255, 255, 255); 
+  color: black; 
+  border: 2px solid cadetblue;
+  padding: 10px 22px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 10px 2px 10pxpx;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: rgb(52, 175, 212);
+  color: white;
+}
