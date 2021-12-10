@@ -53,10 +53,10 @@ const App = () => {
   let protectedLinks = <></>
 
   let userInfo = <>
-    <div>
-      <button onClick={() => setLoginPopup(true)}>Log in</button>
+    <div className="loginDiv">
+      <button className="button" onClick={() => setLoginPopup(true)}>Log in</button>
       <br /> OR <br />
-      <button onClick={() => setRegisterPopup(true)} >Register Now</button>
+      <button className="button" onClick={() => setRegisterPopup(true)} >Register Now</button>
     </div>
   </>
 
@@ -64,9 +64,9 @@ const App = () => {
     jwtPayload = jwt_decode(userAuthData.jwt);
     userName = jwtPayload.user.name;
     console.log(jwtPayload);
-    userInfo = <div>
+    userInfo = <div className="loginDiv">
       Welcome <br /> {userName} <br />
-      <button onClick={() => userAuthData.logout()} >Logout</button>
+      <button className="button" onClick={() => userAuthData.logout()} >Logout</button>
     </div>
     if (jwtPayload.user.role == "user") {
       protectedLinks = <>
@@ -96,9 +96,11 @@ if(restaurants){
             <div className="infoDiv">
               {userInfo}
             </div>
+            <div className="menuItemDiv">
             {protectedLinks}
             <Link to='/shoppingcart'><div className="navLink">Shopping Cart</div></Link>
             <Link to='/restaurants'><div className="navLink">Restaurants</div></Link>
+            </div>
           </div>
           <div className='content'>
             <main>
@@ -111,7 +113,7 @@ if(restaurants){
               <h3>Register</h3>
             </Register>
             <Routes>
-              <Route path="/orders" element={<Orders />} />
+              <Route path="/orders" element={<Orders jwtToken = {userAuthData.jwt}/>} />
               <Route path='/restaurants' element={<Restaurants 
                 restaurants={restaurants} 
                 setRestaurants={setRestaurants} 
