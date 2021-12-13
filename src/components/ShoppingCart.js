@@ -20,11 +20,9 @@ export default function ShoppingCart(props) {
       idrestaurant: props.orderRestaurantID,
     })
       .then((response) => {
-        setTimeout(() => {
           setCartItems([]);
           alert("Tilauksesi on lähetetty!");
           navigate("/orders", { replace: true });
-        }, 1500);
       });
   }
 

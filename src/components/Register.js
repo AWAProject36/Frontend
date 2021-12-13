@@ -20,7 +20,8 @@ function Register(props) {
                 password: password,
                 phone: phone
             })
-            if (result.data.constraint = "unique_email") {
+            console.log(result)
+            if (result.data.constraint == "unique_email") {
                 throw "email";
             }
             setRegisterState("ok");
