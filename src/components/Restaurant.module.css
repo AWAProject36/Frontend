@@ -1,0 +1,16 @@
+img {
+    width: 15%;
+    height: auto;
+  }
+
+.RestaurantTitle{
+    font-size: 4vh;
+}
+
+.RestaurantType{
+    font-size: 2vh;
+}
+
+.RestaurantPrice{
+    font-size: 2vh;
+}

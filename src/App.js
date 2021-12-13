@@ -11,18 +11,59 @@ import jwt_decode from 'jwt-decode';
 import RestaurantView from './components/RestaurantView';
 import axios from 'axios';
 import Orders from './components/Orders';
-
+import ShoppingCart from './components/ShoppingCart';
 
 const jwtFromStorage = window.localStorage.getItem('appAuthData');
+
 var userName, jwtPayload;
 
 const App = () => {
   const [loginPopup, setLoginPopup] = useState(false);
   const [registerPopup, setRegisterPopup] = useState(false);
   const [createRestaurantPopup, setcreateRestaurantPopup] = useState(false);
-  const [buttonPopup3, setButtonPopup3] = useState(false);
-  const [restaurants, setRestaurants] = useState(null)
-  const [searchField, setSearchField] = useState("")
+  const [restaurants, setRestaurants] = useState(null);
+  const [searchField, setSearchField] = useState("");
+  const [orderRestaurantID, setOrderRestaurantID] = useState(null);
+  const [cartItems, setCartItems] = useState([]);
+
+  const setRestaurantID = (idrestaurant) => {
+    if(orderRestaurantID && orderRestaurantID != idrestaurant){
+      setCartItems([]);
+      setOrderRestaurantID(null);
+      alert("Voit tilata kerrallaan vain yhdestä ravintolasta! Ostoskorisi on tyhjennetty");
+    }
+    else{
+      setOrderRestaurantID(idrestaurant);
+    }
+  }
+
+
+
+  const addItem = (product) => {
+    const exist = cartItems.find((x) => x.id === product.id);
+    if (exist) {
+      setCartItems(
+        cartItems.map((x) =>
+          x.id === product.id ? { ...exist, qty: exist.qty + 1 } : x
+        )
+      );
+    } else {
+      setCartItems([...cartItems, { ...product, qty: 1 }]);
+    }
+  };
+
+  const removeItem = (product) => {
+    const exist = cartItems.find((x) => x.id === product.id);
+    if (exist.qty === 1) {
+      setCartItems(cartItems.filter((x) => x.id !== product.id));
+    } else {
+      setCartItems(
+        cartItems.map((x) =>
+          x.id === product.id ? { ...exist, qty: exist.qty - 1 } : x
+        )
+      );
+    }
+  };
 
   useEffect(() => {
     axios.get('https://voltti-app.herokuapp.com/restaurants')
@@ -44,12 +85,10 @@ const App = () => {
     logout: () => {
       window.localStorage.removeItem('appAuthData');
       setUserAuthData({ ...initialAuthData });
-      console.log("Logged out successfully")
     }
   };
 
   const [userAuthData, setUserAuthData] = useState({ ...initialAuthData });
-
   let protectedLinks = <></>
 
   let userInfo = <>
@@ -62,8 +101,11 @@ const App = () => {
 
   if (userAuthData.jwt) {
     jwtPayload = jwt_decode(userAuthData.jwt);
+    const now = Date.now() / 1000;
+    if (jwtPayload.exp < now) {
+      userAuthData.logout();
+    } else {
     userName = jwtPayload.user.name;
-    console.log(jwtPayload);
     userInfo = <div className="loginDiv">
       Welcome <br /> {userName} <br />
       <button className="button" onClick={() => userAuthData.logout()} >Logout</button>
@@ -87,6 +129,8 @@ const App = () => {
       </>
     }
   }
+  }
+
 if(restaurants){
   return (
     <UserAuthContext.Provider value={userAuthData}>
@@ -106,13 +150,15 @@ if(restaurants){
           </div>
           <div className='content'>
             <Routes>
+            <Route path='shoppingcart' element={<ShoppingCart setCartItems = {setCartItems} orderRestaurantID = {orderRestaurantID} jwtPayload = {jwtPayload} jwtToken = {userAuthData.jwt} addItem = {addItem} removeItem={removeItem} cartItems={cartItems}/>} />
               <Route path="/orders" element={<Orders jwtToken = {userAuthData.jwt}/>} />
               <Route path='/restaurants' element={<Restaurants 
+                jwtPayload={jwtPayload}
                 restaurants={restaurants} 
                 setRestaurants={setRestaurants} 
                 searchField={searchField} 
                 setSearchField={setSearchField}/>} />
-              <Route path="/restaurants/:idrestaurant" element={<RestaurantView restaurants={restaurants}/>} />
+              <Route path="/restaurants/:idrestaurant" element={<RestaurantView jwtToken = {userAuthData.jwt} jwtPayload={jwtPayload}setRestaurantID={setRestaurantID} addItem={addItem} restaurants={restaurants}/>} />
             </Routes>
           </div>
         </div>
