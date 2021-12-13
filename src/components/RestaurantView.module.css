@@ -1,0 +1,33 @@
+.button {
+    background-color: rgba(255, 255, 255, 0.274); 
+    color: black; 
+    border: 2px solid cadetblue;
+    padding: 10px 22px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 10px 2px 0px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    margin-bottom: 1vh;
+    margin-right: 1vh;
+  }
+  
+.button:hover {
+    background-color: cadetblue;
+    color: white;
+  }
+.OwnerControls{
+    margin-left: 15%;
+    font-size: 2rem;
+    font-family: Impact;
+    color: cadetblue;
+}
+
+.IdList{
+    border: 2px solid cadetblue;
+    background-color: #dfdfdf;
+    margin-top: 2vh;
+    padding: 1vh;
+}
