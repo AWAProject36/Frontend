@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
@@ -11,7 +11,14 @@ export default function ShoppingCart(props) {
   let navigate = useNavigate();
   axios.defaults.headers.common = { 'Authorization': `bearer ${props.jwtToken}` }
 
+  const [exp, setExp] = useState("");
+  const [cNum, setCNum] = useState("");
+  const [cvc, setCVC] = useState("");
+
   function postOrder() {
+    if(exp == "" || cNum == "" || cvc == ""){
+      alert("You must fill in the card details");
+    } else{
     let productIdList = [];
     cartItems.map(x => {
       for (let i = 0; x.qty != i; i++) {
@@ -30,6 +37,8 @@ export default function ShoppingCart(props) {
         alert("Your order has been sent!");
         navigate("/orders", { replace: true });
       });
+
+    }
   }
 
   let infoForm = <></>;
@@ -43,16 +52,15 @@ export default function ShoppingCart(props) {
           </label>
           <h2>Card Details: </h2>
           <label>
-            Card number: <input type="text" name="cardnumber" /> <br />
+            Card number: <input type="text" name="cardnumber" onChange={(event) => setCNum(event.target.value)}/> <br />
           </label>
           <label>
             Card expire date: <input className={styles.ExpiryInput} type="text" name="expire_month" maxLength="2" /> /
-            <input className={styles.ExpiryInput} type="text" name="expire_year" maxLength="2" /> <br />
+            <input className={styles.ExpiryInput} type="text" name="expire_year" maxLength="2"  onChange={(event) => setExp(event.target.value)} /> <br />
           </label>
           <label>
-            CVC: <input type="text" name="expire" maxLength="3" /> <br />
+            CVC: <input type="text" name="expire" maxLength="3" onChange={(event) => setCVC(event.target.value)} /> <br />
           </label>
-          <input type="submit" value="Submit" />
         </form>
       </div>
     </>
