@@ -1,15 +1,15 @@
-import styles from './orders.module.css'
-import React, { useEffect, useState } from 'react'
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
-import axios from 'axios'
+import styles from './OwnerOrders.module.css';
+import React, { useEffect, useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import axios from 'axios';
 
 
-export default function Orders(props) {
+export default function OwnerOrders(props) {
     axios.defaults.headers.common = { 'Authorization': `bearer ${props.jwtToken}` }
     const [orders, setOrders] = useState(null);
 
     const getOrders = () => {
-        axios.get('https://voltti-app.herokuapp.com/orders')
+        axios.get(`https://voltti-app.herokuapp.com/orders/${props.orderRestaurantID}`)
         .then((response) => {
             console.log(response.data);
             setOrders(response.data);
@@ -19,9 +19,9 @@ export default function Orders(props) {
         getOrders();
     }, []);
 
-    function confirmOrder(id){
+    function updateOrder(id, state){
         axios.put(`https://voltti-app.herokuapp.com/orders/${id}`,{
-            state: "Delivered"
+            state: state
         })
         .then((response) => {
             console.log(response.data);
@@ -29,31 +29,13 @@ export default function Orders(props) {
             getOrders();
         });
     }
+
     if (orders) {
         let currentOrder = [<></>];
         let i = 0;
         let found = 0;
         while(orders[i]){
         if (orders[i].state != "Delivered") {
-            let eta = "";
-            switch(orders[i].state) {
-                case "Received":
-                    eta="40 minutes";
-                break;
-
-                case "Prepairing":
-                    eta="30 minutes";
-                break;
-
-                case "Ready for delivery":
-                    eta="20 minutes";
-                break;
-
-                case "Delivering":
-                    eta="10 minutes";
-                break;
-            }
-
             let products = [<></>];
             orders[i].products.forEach(element => {
                 products.push(<p>{element}</p>)
@@ -61,12 +43,20 @@ export default function Orders(props) {
             let orderid = orders[i].id;
             currentOrder.push(
                 <div className={styles.status} >
-                    <p>{orders[i].restaurant}</p>
+                    <p>Customer: {orders[i].name}</p>
                     {products}
-                    <p>Total: {orders[i].sum.toFixed(2)}€</p>
-                    <p>Status: {orders[i].state}</p>
-                    <p>Estimated time of arrival: {eta} </p>
-                    <button className={styles.button} onClick={() => { confirmOrder(orderid) } }>Confirm Order</button>
+                    <p>Phone: {orders[i].phone}</p>
+                    <p>Address: {orders[i].address}</p>
+                    <p>Current state: {orders[i].state}</p>
+                    <div>
+                    <button className={styles.button} onClick={() => { updateOrder(orderid, "Received") } }>Received</button>
+                    <button className={styles.button} onClick={() => { updateOrder(orderid, "Prepairing") } }>Prepairing</button>
+                    </div>
+                    <div>
+                    <button className={styles.button} onClick={() => { updateOrder(orderid, "Ready for delivery") } }>Ready for delivery</button>
+                    <button className={styles.button} onClick={() => { updateOrder(orderid, "Delivering") } }>Delivering</button>
+                    </div>
+                    <button className={styles.button} onClick={() => { updateOrder(orderid, "Delivered") } }>Delivered</button>
                 </div>
             );
         }
@@ -82,11 +72,12 @@ export default function Orders(props) {
         i = 0;
         while (orders[i]) {
             if(orders[i].state == "Delivered"){
+                console.log("joojee");
             let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
             let date = new Date(orders[i].date.replace(' ', 'T'));
             orderHistory.push(
                 <div className={styles.historyItem}>
-                    <p>{orders[i].restaurant}, Total: {orders[i].sum.toFixed(2)}€  Order Date: {date.toLocaleDateString("en-US", options)}</p>
+                    <p>{orders[i].restaurant}, Total: {orders[i].sum}€  Order Date: {date.toLocaleDateString("en-US", options)}</p>
                 </div>
             );
         }
@@ -96,10 +87,10 @@ export default function Orders(props) {
             <div className={styles.container}>
                 <div className={styles.container2}>
                     <div className={styles.tilaukset}>
-                        Tilaukset
+                        Your restaurants active orders
                     </div>
                     <div className={styles.historia}>
-                        Tilaushistoria
+                        Your restaurants order history
                     </div>
                 </div>
                 <div className={styles.container2}>

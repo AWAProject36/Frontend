@@ -15,10 +15,15 @@ function FoodItem(props) {
         buttons = <>
             <button onClick={() => postRemoveProduct()}>Remove from menu</button> </>
     }
-    else {
+    else if(props.jwtPayload && props.jwtPayload.user.role == "user"){
         buttons = <>
-            <button onClick={() => { props.addItem(props); props.setRestaurantID(props.idrestaurant); }}>Add</button>
+            <button onClick={() => { props.addItem(props); props.setRestaurantID(props.idrestaurant); }}>Add to cart</button>
         </>
+    }
+    else{
+        buttons = <>
+        <p className="foodAlert">You have to be logged in to buy</p>
+    </>
     }
     return (
         <div className='foodContainer'>

@@ -4,8 +4,10 @@ import CategoryItem from './CategoryItem'
 import AddProduct from './AddProduct';
 import axios from 'axios';
 import styles from "./RestaurantView.module.css"
+import { useNavigate } from "react-router-dom";
 
 const RestaurantView = (props) => {
+    const navigate = useNavigate();
     const params = useParams()
     const [menu, setMenu] = useState(null)
     const [categories, setCategories] = useState(null)
@@ -39,6 +41,7 @@ const RestaurantView = (props) => {
                 idrestaurant: data.idrestaurant
             })
             console.log(result);
+            getMenu();
         } catch (error) {
             if(error==="emptyfield") alert("Category name cannot be empty!")
             console.error(error.message);
@@ -50,12 +53,14 @@ const RestaurantView = (props) => {
 
     let ownerControls, categoryList = <></>
     if (props.jwtPayload && (props.jwtPayload.user.role == "owner" && categories)) {
+        props.setOrderRestaurantID(data.idrestaurant);
         categoryList = categories.map(e => <>
             <div className={styles.IdList}>Category: {e.name} <br/>Category ID: {e.idcategories} </div>
             </>
             );
         ownerControls = <>
             <div className={styles.OwnerControls}>
+            <button className={styles.button} onClick={() => navigate("/ownerorders", { replace: true })}> Check Orders </button>
                 Restaurant owner options:
                 <button className={styles.button} onClick={() => setProductPopup(true)}> Add a new product </button>
                 New category:
@@ -68,7 +73,7 @@ const RestaurantView = (props) => {
     if (menu) {
         return (
             <div className="viewContainer">
-                <AddProduct id={data.idrestaurant} categoryList={categoryList} trigger={productPopup} setTrigger={setProductPopup}><h3>Add a new product</h3></AddProduct>
+                <AddProduct getMenu = {getMenu} id={data.idrestaurant} categoryList={categoryList} trigger={productPopup} setTrigger={setProductPopup}><h3>Add a new product</h3></AddProduct>
                 <div className="restaurantInfo">
                     <img src={data.img} alt={data.name} />
                     <div className="restaurantData">

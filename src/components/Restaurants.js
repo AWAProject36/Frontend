@@ -24,7 +24,7 @@ export default function Restaurants(props) {
     return (
       <div className="viewContainer">
         <div className='searchDiv'>
-          <div>Search</div> <input className='search' type="text" placeholder="Find Restaurants" onChange={fieldUpdate} value={props.searchField} />
+          <div>Search: </div> <input className='search' type="text" placeholder="Find Restaurants" onChange={fieldUpdate} value={props.searchField} />
         </div>
         <div className="restaurantList">
           {restaurants}

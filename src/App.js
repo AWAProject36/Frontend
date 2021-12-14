@@ -11,6 +11,7 @@ import jwt_decode from 'jwt-decode';
 import RestaurantView from './components/RestaurantView';
 import axios from 'axios';
 import Orders from './components/Orders';
+import OwnerOrders from './components/OwnerOrders';
 import ShoppingCart from './components/ShoppingCart';
 
 const jwtFromStorage = window.localStorage.getItem('appAuthData');
@@ -37,8 +38,6 @@ const App = () => {
     }
   }
 
-
-
   const addItem = (product) => {
     const exist = cartItems.find((x) => x.id === product.id);
     if (exist) {
@@ -50,6 +49,7 @@ const App = () => {
     } else {
       setCartItems([...cartItems, { ...product, qty: 1 }]);
     }
+    alert("The product has been added to your shoppingcart!");
   };
 
   const removeItem = (product) => {
@@ -112,7 +112,7 @@ const App = () => {
     </div>
     if (jwtPayload.user.role == "user") {
       protectedLinks = <>
-        <Link to='/settings'><div className="navLink">Settings</div></Link>
+        <Link to='/shoppingcart'><div className="navLink">Shopping Cart</div></Link>
         <Link to='/orders'><div className="navLink">My Orders</div></Link>
         <CreateRestaurant trigger={createRestaurantPopup} setTrigger={setcreateRestaurantPopup}>
           <h3>Create a new restaurant</h3>
@@ -132,6 +132,7 @@ const App = () => {
   }
 
 if(restaurants){
+
   return (
     <UserAuthContext.Provider value={userAuthData}>
       <Router>
@@ -144,21 +145,21 @@ if(restaurants){
             {protectedLinks}
             <Login trigger={loginPopup} setTrigger={setLoginPopup}><h3>Log in</h3></Login>
             <Register trigger={registerPopup} setTrigger={setRegisterPopup} loginTrigger={setLoginPopup}><h3>Register</h3></Register>
-            <Link to='/shoppingcart'><div className="navLink">Shopping Cart</div></Link>
-            <Link to='/restaurants'><div className="navLink">Restaurants</div></Link>
+            <Link to='/'><div className="navLink">Restaurants</div></Link>
             </div>
           </div>
           <div className='content'>
             <Routes>
             <Route path='shoppingcart' element={<ShoppingCart setCartItems = {setCartItems} orderRestaurantID = {orderRestaurantID} jwtPayload = {jwtPayload} jwtToken = {userAuthData.jwt} addItem = {addItem} removeItem={removeItem} cartItems={cartItems}/>} />
               <Route path="/orders" element={<Orders jwtToken = {userAuthData.jwt}/>} />
-              <Route path='/restaurants' element={<Restaurants 
+              <Route path="/ownerorders" element={<OwnerOrders orderRestaurantID={orderRestaurantID}jwtToken = {userAuthData.jwt}/>} />
+              <Route path='/' element={<Restaurants 
                 jwtPayload={jwtPayload}
                 restaurants={restaurants} 
                 setRestaurants={setRestaurants} 
                 searchField={searchField} 
                 setSearchField={setSearchField}/>} />
-              <Route path="/restaurants/:idrestaurant" element={<RestaurantView jwtToken = {userAuthData.jwt} jwtPayload={jwtPayload}setRestaurantID={setRestaurantID} addItem={addItem} restaurants={restaurants}/>} />
+              <Route path="/restaurants/:idrestaurant" element={<RestaurantView jwtToken = {userAuthData.jwt} setOrderRestaurantID={setOrderRestaurantID} jwtPayload={jwtPayload} setRestaurantID={setRestaurantID} addItem={addItem} restaurants={restaurants}/>} />
             </Routes>
           </div>
         </div>

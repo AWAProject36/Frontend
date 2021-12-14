@@ -5,7 +5,7 @@ import styles from "./Restaurant.module.css"
 export default function Restaurant(props) {
     return (
         <div className="shop">
-            <Link to={`/restaurants/${props.idrestaurant}`} key={props.idrestaurant}>
+            <Link className={"link"} to={`/restaurants/${props.idrestaurant}`} key={props.idrestaurant}>
             <div><img src={props.img} alt={props.name} className="foodImage" /></div>
             <div>
                 <div className={styles.RestaurantTitle}>{props.name}</div>

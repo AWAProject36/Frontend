@@ -12,7 +12,13 @@ export default function ShoppingCart(props) {
   axios.defaults.headers.common = { 'Authorization': `bearer ${props.jwtToken}` }
 
   function postOrder() {
-    const productIdList = cartItems.map(x => x.id)
+    let productIdList = [];
+    cartItems.map(x => {
+      for (let i = 0; x.qty != i; i++) {
+        productIdList.push(x.id)
+      }
+    }
+    )
     axios.post(`https://voltti-app.herokuapp.com/orders/`, {
       idusers: jwtPayload.user.id,
       state: "New",
@@ -20,9 +26,9 @@ export default function ShoppingCart(props) {
       idrestaurant: props.orderRestaurantID,
     })
       .then((response) => {
-          setCartItems([]);
-          alert("Tilauksesi on lähetetty!");
-          navigate("/orders", { replace: true });
+        setCartItems([]);
+        alert("Your order has been sent!");
+        navigate("/orders", { replace: true });
       });
   }
 
