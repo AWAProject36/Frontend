@@ -32,8 +32,9 @@
 
 .navMenu {
   background: cadetblue;
-  width: auto;
-  height: 100vh;
+  width: 25vh;
+  min-height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: left;
@@ -51,11 +52,14 @@
   height: 95vh;
   width: auto;
   background-color: peachpuff;
+  text-decoration: none;
 }
 
 .mainFrame {
   display: flex;
   flex-direction: row;
+  height: 100%;
+  min-height: 100vh;
 }
 
 .shop {
@@ -68,12 +72,20 @@
   color: chocolate;
   font-size: 1.5rem;
   font-family: Impact;
+  text-decoration: none;
 }
 
 .infoRow {
   display: flex;
+  text-decoration: none;
   flex-direction: row;
 }
+
+.link {
+  color: chocolate;
+  text-decoration: none;
+}
+
 
 .title {
   background-color: aqua;
@@ -117,6 +129,7 @@
   display: flex;
   flex-direction: column;
   width: 100%;
+  height: 100vh;
 }
 
 .restaurantInfo {
@@ -146,7 +159,7 @@
   flex-direction: row;
   flex-wrap: wrap;
   gap: 4rem;
-  height: 85vh;
+  height: 100%;
   width: auto;
   background-color: peachpuff;
 }
@@ -206,13 +219,23 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   gap: 0.5rem;
   font-family: Impact;
   color: rgb(255, 160, 77);
   text-shadow: 1px 1px #000000;
 }
 
+.foodAlert{
+  font-size: 1rem;
+  font-family: Impact;
+  color: rgb(255, 160, 77);
+  text-shadow: 1px 1px #000000;
+  padding: 5px;
+  border: 3px solid rgb(255, 160, 77);
+  border-radius: 10%;
+  
+}
 .foodUpperDetaisRow {
   gap: 1rem;
   display: flex;

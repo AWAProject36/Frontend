@@ -13,7 +13,7 @@
     max-height: 40px;
     border: 1px #ccc solid;
     padding: 15px;
-    min-width: 400px;
+    min-width: 450px;
     margin: 20px;
     background-color: #dfdfdf;
 }
@@ -31,7 +31,7 @@
     min-height: 300px;
     border: 1px #ccc solid;
     padding: 15px;
-    min-width: 400px;
+    min-width: 450px;
     margin: 20px;
     background-color: #dfdfdf;
 }
@@ -45,7 +45,7 @@
 }
 
 .status {
-    width: 300px;
+    width: 350px;
     border: 2px solid cadetblue;
     padding: 15px;
     margin: 30px;

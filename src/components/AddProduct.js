@@ -30,9 +30,10 @@ function AddProduct(props) {
             setCreateState("ok");
             console.log(result)
             setTimeout(() => {
+                props.getMenu();
                 setCreateState("idle")
                 props.setTrigger(false);
-            }, 3500);
+            }, 1500);
 
         } catch (error) {
             setCreateState("err");
